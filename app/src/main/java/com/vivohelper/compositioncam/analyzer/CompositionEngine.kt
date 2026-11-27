@@ -163,8 +163,11 @@ object CompositionEngine {
             }
             pitchDiffFromVertical > 18f -> {
                 score = (score - 5).coerceAtLeast(40)
-                tip = "建筑仰/俯角较大，如需横平竖直请端直手机"
-                subTip = if (pitch > 90f) "当前为俯拍视角" else "当前为仰拍视角，注意边缘透视"
+                dir = if (pitch > 90f) GuideDirection.UP else GuideDirection.DOWN
+                val angleOffset = String.format("%.0f", pitchDiffFromVertical)
+                tip = if (pitch > 90f) "当前俯拍偏多 ${angleOffset}°，请略微抬高镜头端直"
+                else "当前仰拍偏多 ${angleOffset}°，请略微压低镜头端直"
+                subTip = "竖直端平（90°）可减少建筑竖线透视畸变"
             }
             else -> {
                 tip = "水平已对齐，构图稳健"
