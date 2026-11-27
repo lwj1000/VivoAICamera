@@ -29,12 +29,12 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: 编译 Debug APK
-        run: gradle assembleDebug --no-daemon
+      - name: 编译瘦身版 Release APK
+        run: gradle assembleRelease --no-daemon
 
-      - name: 上传 APK 构建产物
+      - name: 上传瘦身版 APK 构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: vivo-ai-composition-cam-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: vivo-ai-composition-cam-slim-apk
+          path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error

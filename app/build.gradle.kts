@@ -14,11 +14,19 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
+
+        // 仅保留 vivo X200 Ultra 使用的 64 位 ARM 架构，大幅减小体积
+        ndk {
+            abiFilters += listOf("arm64-v8a")
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // 开启 R8 代码压缩与无用资源裁剪，并用 debug 签名以便直接安装到手机
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
